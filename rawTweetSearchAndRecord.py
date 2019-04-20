@@ -25,7 +25,7 @@ for company in companiesTracked:
     for tweet in tweepy.Cursor(api.search, q = searchTerm + " -filter:retweets", tweet_mode ='extended', lang = 'en').items(10):
         # makes sure a tweet isn't a reply to some other tweet
         if tweet.in_reply_to_status_id is None:
-            csvWriter.writerow([tweet.user.id, tweet.user.screen_name, tweet.user.followers_count,
+            csvWriter.writerow([searchTerm, tweet.user.id, tweet.user.screen_name, tweet.user.followers_count,
                                 tweet.created_at, tweet.full_text])
 
 rawTweetFile.close()
