@@ -67,6 +67,7 @@ for line in csvReader:
     line[5] = line[5].replace('@', '')
     line[5] = line[5].encode('ascii', 'ignore').decode('ascii')
 
+    # this if-else structure makes sure tweets are parsed into correct company file
     if line[0] == companiesTracked[0]:
         del line[0]
         recordTweetRegardingTesla(line)
