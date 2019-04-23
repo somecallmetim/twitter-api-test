@@ -11,10 +11,17 @@ api = tweepy.API(auth)
 # these are our search terms
 companiesTracked = ["Tesla", "Google", "Apple", "CVS Health", "Verizon", "Facebook", "Amazon", "General Motors",
                     "Chevron", "J.P. Morgan Chase"]
+currentlyRecordedTweetsById = []
+
 
 # csv file will track all our raw data
-rawTweetFile = open("rawTweetFile.csv", 'a')
+rawTweetFile = open("rawTweetFile.csv", 'a+')
 csvWriter = csv.writer(rawTweetFile)
+csvReader = csv.reader(rawTweetFile)
+
+# record all tweet id's in local list to check future tweets for uniqueness
+for line in csvReader:
+    currentlyRecordedTweetsById.append(line[1])
 
 # searches for tweets related to each corporation we're tracking
 for company in companiesTracked:
@@ -23,9 +30,11 @@ for company in companiesTracked:
 
     # records raw tweets and other data in our rawTweetFile
     for tweet in tweepy.Cursor(api.search, q = searchTerm + " -filter:retweets", tweet_mode ='extended', lang = 'en').items(10):
-        # makes sure a tweet isn't a reply to some other tweet
-        if tweet.in_reply_to_status_id is None:
-            csvWriter.writerow([searchTerm, tweet.user.id, tweet.user.screen_name, tweet.user.followers_count,
+        # makes sure a tweet isn't a reply to some other tweet and that the tweet isn't a duplicate
+        if tweet.in_reply_to_status_id is None and tweet.id not in currentlyRecordedTweetsById:
+            csvWriter.writerow([searchTerm, tweet.id, tweet.user.screen_name, tweet.user.followers_count,
                                 tweet.created_at, tweet.full_text])
+            # add tweet id to our list to make sure we don't record the same tweet twice
+            currentlyRecordedTweetsById.append(tweet.id)
 
 rawTweetFile.close()
