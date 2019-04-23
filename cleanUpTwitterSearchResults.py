@@ -59,8 +59,13 @@ rawTweetFile = open("rawTweetFile.csv", 'r')
 csvReader = csv.reader(rawTweetFile)
 
 for line in csvReader:
-
+    # line[5] is the place where the tweet's raw text lives
+        # here we'll remove hashtags and any none ascii char's
+        # this is to get rid of emoji's primarily and is a bit heavy handed
+        # however, we can get away with this as we're only analyzing tweets in english
     line[5] = line[5].replace('#', '')
+    line[5] = line[5].replace('@', '')
+    line[5] = line[5].encode('ascii', 'ignore').decode('ascii')
 
     if line[0] == companiesTracked[0]:
         del line[0]
