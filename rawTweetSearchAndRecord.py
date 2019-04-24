@@ -39,7 +39,7 @@ for company in companiesTracked:
     searchTerm = company
 
     # records raw tweets and other data in our rawTweetFile
-    for tweet in tweepy.Cursor(api.search, q = searchTerm + " -filter:retweets", tweet_mode ='extended', lang = 'en').items(80):
+    for tweet in tweepy.Cursor(api.search, q = searchTerm + " -filter:retweets", tweet_mode ='extended', lang = 'en').items(60):
         # makes sure a tweet isn't a reply to some other tweet and that the tweet isn't a duplicate
         if tweet.in_reply_to_status_id is None and tweet.id not in currentlyRecordedTweetsById:
             csvWriter.writerow([searchTerm, tweet.id, tweet.user.screen_name, tweet.user.followers_count,
