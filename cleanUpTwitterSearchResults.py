@@ -1,4 +1,5 @@
 import csv
+import preprocessor as p
 
 companiesTracked = ["Tesla", "Google", "Apple", "CVS Health", "Verizon", "Facebook", "Amazon", "General Motors",
                     "Chevron", "J.P. Morgan Chase"]
@@ -55,6 +56,8 @@ def recordTweetRegardingChase(csvLine):
         csvWriter.writerow(csvLine)
 
 
+p.set_options(p.OPT.URL, p.OPT.EMOJI, p.OPT.SMILEY)
+
 rawTweetFile = open("rawTweetFile.csv", 'r')
 csvReader = csv.reader(rawTweetFile)
 
@@ -65,7 +68,8 @@ for line in csvReader:
         # however, we can get away with this as we're only analyzing tweets in english
     line[5] = line[5].replace('#', '')
     line[5] = line[5].replace('@', '')
-    line[5] = line[5].encode('ascii', 'ignore').decode('ascii')
+    # uses tweet-preprocessor library to remove URL's, emojis, and smileys
+    line[5] = p.clean(line[5])
 
     # this if-else structure makes sure tweets are parsed into correct company file
     if line[0] == companiesTracked[0]:
