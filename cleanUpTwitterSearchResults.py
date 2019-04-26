@@ -9,42 +9,42 @@ def recordTweetRegardingTesla(csvLine):
     with open ("tweetsRegardingTesla.csv", 'a') as currentCompanyFile:
         csvWriter = csv.writer(currentCompanyFile)
         csvWriter.writerow(csvLine)
-        
+
 def recordTweetRegardingGoogle(csvLine):
     with open ("tweetsRegardingGoogle.csv", 'a') as currentCompanyFile:
         csvWriter = csv.writer(currentCompanyFile)
         csvWriter.writerow(csvLine)
-        
+
 def recordTweetRegardingApple(csvLine):
     with open ("tweetsRegardingApple.csv", 'a') as currentCompanyFile:
         csvWriter = csv.writer(currentCompanyFile)
         csvWriter.writerow(csvLine)
-        
+
 def recordTweetRegardingCVS_Health(csvLine):
     with open ("tweetsRegardingCVS_Health.csv", 'a') as currentCompanyFile:
         csvWriter = csv.writer(currentCompanyFile)
         csvWriter.writerow(csvLine)
-        
+
 def recordTweetRegardingVerizon(csvLine):
     with open ("tweetsRegardingVerizon.csv", 'a') as currentCompanyFile:
         csvWriter = csv.writer(currentCompanyFile)
         csvWriter.writerow(csvLine)
-        
+
 def recordTweetRegardingFacebook(csvLine):
     with open ("tweetsRegardingFacebook.csv", 'a') as currentCompanyFile:
         csvWriter = csv.writer(currentCompanyFile)
         csvWriter.writerow(csvLine)
-        
+
 def recordTweetRegardingAmazon(csvLine):
     with open ("tweetsRegardingAmazon.csv", 'a') as currentCompanyFile:
         csvWriter = csv.writer(currentCompanyFile)
         csvWriter.writerow(csvLine)
-        
+
 def recordTweetRegardingGm(csvLine):
     with open ("tweetsRegardingGm.csv", 'a') as currentCompanyFile:
         csvWriter = csv.writer(currentCompanyFile)
         csvWriter.writerow(csvLine)
-        
+
 def recordTweetRegardingChevron(csvLine):
     with open ("tweetsRegardingChevron.csv", 'a') as currentCompanyFile:
         csvWriter = csv.writer(currentCompanyFile)
@@ -63,9 +63,7 @@ csvReader = csv.reader(rawTweetFile)
 
 for line in csvReader:
     # line[5] is the place where the tweet's raw text lives
-        # here we'll remove hashtags and any none ascii char's
-        # this is to get rid of emoji's primarily and is a bit heavy handed
-        # however, we can get away with this as we're only analyzing tweets in english
+        # here we'll remove hashtags, @ symbols, URLs, emojis, and smileys
     line[5] = line[5].replace('#', '')
     line[5] = line[5].replace('@', '')
     # uses tweet-preprocessor library to remove URL's, emojis, and smileys
