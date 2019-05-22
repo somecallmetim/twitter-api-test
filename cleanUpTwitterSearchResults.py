@@ -4,6 +4,7 @@ import preprocessor as p
 companiesTracked = ["Tesla", "Google", "Apple", "CVS Health", "Verizon", "Facebook", "Amazon", "General Motors",
                     "Chevron", "J.P. Morgan Chase"]
 
+# keeps track of the number of tweets per company whenever this script is run
 tweetsPerCompany = {"Tesla": 0, "Google": 0, "Apple": 0, "CVS Health": 0, "Verizon": 0, "Facebook": 0, "Amazon": 0, "General Motors": 0,
                     "Chevron": 0, "J.P. Morgan Chase": 0}
 
